@@ -59,11 +59,76 @@
 - 非原版类或无法可靠转换的条目会标记为 `SKIPPED`，请手动处理。
 - 对于 AT 字段未写 descriptor 的情况，会尝试从 `common/build/moddev/artifacts/vanilla-*-sources.jar` 推断类型。
 
-## 发布任务（可选）
+---
 
-- 聚合发布：`publishLoaderReleases`
-- 单端发布：
-  - `:fabric:publishToPlatformServices`
-  - `:neoforge:publishToPlatformServices`
+## 发布任务与 Maven 依赖控制
 
-发布参数见 `gradle.properties` 的 `Release Publishing` 段。
+### Maven 发布与依赖白名单 (`mavenDependencyWhitelist`)
+
+在 `common/build.gradle.kts`、`fabric/build.gradle.kts` 和 `neoforge/build.gradle.kts` 中，可以通过 `extra["mavenDependencyWhitelist"]` 控制哪些依赖会出现在生成的 Maven POM 文件中。
+
+**为什么需要白名单？**  
+默认情况下，Maven 发布会自动包含所有声明的依赖，但有些依赖（如 Mixin、Fabric API、NeoForge 内部依赖）不应暴露给下游使用者，否则可能导致依赖冲突或打包体积膨胀。
+
+**白名单配置方式（支持三种匹配规则）：**
+
+```kotlin
+extra["mavenDependencyWhitelist"] = listOf(
+    "org.spongepowered",               // 按 groupId 匹配（所有该 group 的依赖）
+    "mixin",                           // 按 artifactId 匹配（所有该 artifact 的依赖）
+    "io.github.llamalad7:mixinextras-common" // 按完整坐标 groupId:artifactId 精确匹配
+)
+```
+
+**在子模块中使用：**
+
+- `common/build.gradle.kts` 已预留白名单配置位置，默认 `emptyList()`
+- `fabric/build.gradle.kts` 和 `neoforge/build.gradle.kts` 同样支持该配置
+
+**注意：**  
+白名单配置只影响 Maven 发布（`mavenJava` publication），不会影响项目编译或运行时的依赖解析。
+
+---
+
+### 发布到平台服务（Modrinth / CurseForge）
+
+#### 单端发布
+
+- Fabric 端发布任务：
+  ```powershell
+  .\gradlew :fabric:publishToPlatformServices
+  ```
+- NeoForge 端发布任务：
+  ```powershell
+  .\gradlew :neoforge:publishToPlatformServices
+  ```
+
+#### 聚合发布
+
+如果需要同时发布 Fabric 和 NeoForge 两个平台，可以使用根项目的聚合任务：
+
+```powershell
+.\gradlew publishLoaderReleases
+```
+
+该任务会按顺序依次执行 `:fabric:publishToPlatformServices` 和 `:neoforge:publishToPlatformServices`。
+
+**发布参数配置（在 `gradle.properties` 中）：**
+
+| 属性 | 说明 |
+|------|------|
+| `release_type` | 发布类型：`release` / `beta` / `alpha` |
+| `release_dist` | 发布目标：`client` / `server` / `both` |
+| `release_changelog` | 更新日志（支持 `\n` 换行） |
+| `modrinth_project_fabric` | Fabric 端 Modrinth 项目 ID |
+| `modrinth_project_neoforge` | NeoForge 端 Modrinth 项目 ID |
+| `curseforge_project_fabric` | Fabric 端 CurseForge 项目 ID |
+| `curseforge_project_neoforge` | NeoForge 端 CurseForge 项目 ID |
+
+**环境变量要求：**
+
+- `MODRINTH_TOKEN`：Modrinth 发布 Token
+- `CURSEFORGE_TOKEN`：CurseForge 发布 Token
+- `SIGHS_PUBLISH_USER` / `SIGHS_PUBLISH_PASSWORD`：Maven 私有仓库凭证（可选）
+
+所有发布任务在缺少对应 Token 或项目 ID 时会自动跳过。
