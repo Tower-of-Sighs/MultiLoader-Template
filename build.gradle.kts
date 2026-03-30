@@ -13,3 +13,15 @@ tasks.register("publishLoaderReleases") {
     dependsOn(":fabric:publishToPlatformServices", ":neoforge:publishToPlatformServices")
 }
 
+tasks.register<Exec>("syncProjectFromProperties") {
+    group = "automation"
+    description = "Sync package/main class/mod id/license from gradle.properties."
+    commandLine("python", "sync_project.py", "sync")
+}
+
+tasks.register<Exec>("generateClassTweakerFromAt") {
+    group = "automation"
+    description = "Generate common/src/main/resources/<mod_id>.classtweaker from accesstransformer.cfg."
+    commandLine("python", "sync_project.py", "generate-classtweaker")
+}
+

@@ -27,6 +27,15 @@ val publishChangelog = providers.provider {
 val modrinthProjectId = providers.gradleProperty("modrinth_project_neoforge").orElse(providers.gradleProperty("modrinth_project"))
 val curseforgeProjectId = providers.gradleProperty("curseforge_project_neoforge").orElse(providers.gradleProperty("curseforge_project"))
 
+// Optional POM dependency whitelist for Maven publication.
+// Example:
+// extra["mavenDependencyWhitelist"] = listOf(
+//     "group.id",
+//     "artifact-id",
+//     "group.id:artifact-id",
+// )
+extra["mavenDependencyWhitelist"] = emptyList<String>()
+
 neoForge {
     version = neoforge_version
 

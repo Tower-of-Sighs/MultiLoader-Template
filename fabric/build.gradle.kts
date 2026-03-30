@@ -31,6 +31,15 @@ val publishArtifact = provider {
     tasks.findByName("remapJar") ?: tasks.named("jar").get()
 }
 
+// Optional POM dependency whitelist for Maven publication.
+// Example:
+// extra["mavenDependencyWhitelist"] = listOf(
+//     "group.id",
+//     "artifact-id",
+//     "group.id:artifact-id",
+// )
+extra["mavenDependencyWhitelist"] = emptyList<String>()
+
 dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     implementation("net.fabricmc:fabric-loader:$fabric_loader_version")
@@ -38,7 +47,7 @@ dependencies {
 }
 
 loom {
-    val aw = project(":common").file("src/main/resources/${mod_id}.accesswidener")
+    val aw = project(":common").file("src/main/resources/${mod_id}.classtweaker")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }
