@@ -1,69 +1,69 @@
 # MultiLoader Template
 
-Õâ¸öÄ£°åÓÃÓÚÍ¬Ê±Î¬»¤ `common / fabric / neoforge` Èı¶Ë´úÂë£¬²¢Ìá¹©»ùÓÚ `gradle.properties` µÄÒ»¼üÍ¬²½½Å±¾¡£
+è¿™ä¸ªæ¨¡æ¿ç”¨äºåŒæ—¶ç»´æŠ¤ `common / fabric / neoforge` ä¸‰ç«¯ä»£ç ï¼Œå¹¶æä¾›åŸºäº `gradle.properties` çš„ä¸€é”®åŒæ­¥è„šæœ¬ã€‚
 
-## Ê¹ÓÃÁ÷³Ì
+## ä½¿ç”¨æµç¨‹
 
-1. ¿ËÂ¡»òÊ¹ÓÃÄ£°å´´½¨ÏîÄ¿¡£
-2. ĞŞ¸Ä¸ùÄ¿Â¼ [gradle.properties](./gradle.properties) ÖĞÓëÄãÏîÄ¿Ïà¹ØµÄÅäÖÃ¡£
-3. Ö´ĞĞ `syncProjectFromProperties` Í¬²½ÏîÄ¿½á¹¹ºÍÃüÃû¡£
-4. Èç¹ûÄãĞ´ÁË `accesstransformer.cfg`£¬ÔÙÖ´ĞĞ `generateClassTweakerFromAt` Éú³É Fabric ²àµÄ `.classtweaker`¡£
+1. å…‹éš†æˆ–ä½¿ç”¨æ¨¡æ¿åˆ›å»ºé¡¹ç›®ã€‚
+2. ä¿®æ”¹æ ¹ç›®å½• [gradle.properties](./gradle.properties) ä¸­ä¸ä½ é¡¹ç›®ç›¸å…³çš„é…ç½®ã€‚
+3. æ‰§è¡Œ `syncProjectFromProperties` åŒæ­¥é¡¹ç›®ç»“æ„å’Œå‘½åã€‚
+4. å¦‚æœä½ å†™äº† `accesstransformer.cfg`ï¼Œå†æ‰§è¡Œ `generateClassTweakerFromAt` ç”Ÿæˆ Fabric ä¾§çš„ `.classtweaker`ã€‚
 
-## ĞèÒªĞŞ¸ÄµÄ¹Ø¼üÅäÖÃ
+## éœ€è¦ä¿®æ”¹çš„å…³é”®é…ç½®
 
-ÖÁÉÙÈ·ÈÏÒÔÏÂ×Ö¶Î£º
+è‡³å°‘ç¡®è®¤ä»¥ä¸‹å­—æ®µï¼š
 
-- `group`£ºJava °üÃû¸ùÂ·¾¶£¨ÀıÈç `com.yourname.yourmod`£©
-- `mod_id`£ºÄ£×é ID£¨Ğ¡Ğ´£©
-- `mod_name`£ºÄ£×éÏÔÊ¾Ãû
-- `common_mainclassname`£ºCommon Ö÷ÀàÃû
-- `fabric_mainclassname`£ºFabric Ö÷ÀàÃû
-- `neoforge_mainclassname`£ºNeoForge Ö÷ÀàÃû
-- `license`£ºĞí¿ÉÖ¤±êÊ¶£¨±ê×¼ SPDX/GitHub license key Ê±»á×Ô¶¯Í¬²½ LICENSE ÎÄ±¾£©
+- `group`ï¼šJava åŒ…åæ ¹è·¯å¾„ï¼ˆä¾‹å¦‚ `com.yourname.yourmod`ï¼‰
+- `mod_id`ï¼šæ¨¡ç»„ IDï¼ˆå°å†™ï¼‰
+- `mod_name`ï¼šæ¨¡ç»„æ˜¾ç¤ºå
+- `common_mainclassname`ï¼šCommon ä¸»ç±»å
+- `fabric_mainclassname`ï¼šFabric ä¸»ç±»å
+- `neoforge_mainclassname`ï¼šNeoForge ä¸»ç±»å
+- `license`ï¼šè®¸å¯è¯æ ‡è¯†ï¼ˆæ ‡å‡† SPDX/GitHub license key æ—¶ä¼šè‡ªåŠ¨åŒæ­¥ LICENSE æ–‡æœ¬ï¼‰
 
-## Í¬²½ÃüÁî
+## åŒæ­¥å‘½ä»¤
 
-### 1) Ò»¼üÍ¬²½Ä£°åÃüÃû
+### 1) ä¸€é”®åŒæ­¥æ¨¡æ¿å‘½å
 
 ```powershell
 .\gradlew syncProjectFromProperties
 ```
 
-¸ÃÈÎÎñ»á¸ù¾İ `gradle.properties`£º
+è¯¥ä»»åŠ¡ä¼šæ ¹æ® `gradle.properties`ï¼š
 
-- Í¬²½ÈıÄ£¿é°üÃû
-- Í¬²½ common/fabric/neoforge ¸÷×ÔÖ÷ÀàÃû
-- Í¬²½ `mod_id` Ïà¹ØÎÄ¼şÃûÓëÎÄ±¾ÒıÓÃ£¨°üÀ¨ mixin ÎÄ¼şÃûµÈ£©
-- ¸üĞÂ common Ö÷ÀàÖĞµÄ `MOD_ID` / `MOD_NAME`
-- µ± `license` Îª±ê×¼Ğí¿ÉÖ¤ÃûÊ±£¬Í¨¹ı GitHub API ¸üĞÂ¸ùÄ¿Â¼ `LICENSE`
-- ×Ô¶¯´¥·¢Ò»´Î classtweaker Éú³É
+- åŒæ­¥ä¸‰æ¨¡å—åŒ…å
+- åŒæ­¥ common/fabric/neoforge å„è‡ªä¸»ç±»å
+- åŒæ­¥ `mod_id` ç›¸å…³æ–‡ä»¶åä¸æ–‡æœ¬å¼•ç”¨ï¼ˆåŒ…æ‹¬ mixin æ–‡ä»¶åç­‰ï¼‰
+- æ›´æ–° common ä¸»ç±»ä¸­çš„ `MOD_ID` / `MOD_NAME`
+- å½“ `license` ä¸ºæ ‡å‡†è®¸å¯è¯åæ—¶ï¼Œé€šè¿‡ GitHub API æ›´æ–°æ ¹ç›®å½• `LICENSE`
+- è‡ªåŠ¨è§¦å‘ä¸€æ¬¡ classtweaker ç”Ÿæˆ
 
-### 2) ½öÉú³É classtweaker
+### 2) ä»…ç”Ÿæˆ classtweaker
 
 ```powershell
 .\gradlew generateClassTweakerFromAt
 ```
 
-ÊäÈëÎÄ¼ş£º
+è¾“å…¥æ–‡ä»¶ï¼š
 
 - `common/src/main/resources/META-INF/accesstransformer.cfg`
 
-Êä³öÎÄ¼ş£º
+è¾“å‡ºæ–‡ä»¶ï¼š
 
 - `common/src/main/resources/<mod_id>.classtweaker`
 
-## AT -> CT ×ª»»ËµÃ÷
+## AT -> CT è½¬æ¢è¯´æ˜
 
-- ×ª»»Æ÷»áºöÂÔ×¢ÊÍĞĞ¡£
-- Ö»×Ô¶¯´¦Àí `net.minecraft.*`£¨Ô­°æ£©·ÃÎÊ¼Ó¿í¡£
-- ·ÇÔ­°æÀà»òÎŞ·¨¿É¿¿×ª»»µÄÌõÄ¿»á±ê¼ÇÎª `SKIPPED`£¬ÇëÊÖ¶¯´¦Àí¡£
-- ¶ÔÓÚ AT ×Ö¶ÎÎ´Ğ´ descriptor µÄÇé¿ö£¬»á³¢ÊÔ´Ó `common/build/moddev/artifacts/vanilla-*-sources.jar` ÍÆ¶ÏÀàĞÍ¡£
+- è½¬æ¢å™¨ä¼šå¿½ç•¥æ³¨é‡Šè¡Œã€‚
+- åªè‡ªåŠ¨å¤„ç†åŸç‰ˆçš„è®¿é—®åŠ å®½ã€‚
+- éåŸç‰ˆç±»æˆ–æ— æ³•å¯é è½¬æ¢çš„æ¡ç›®ä¼šæ ‡è®°ä¸º `SKIPPED`ï¼Œè¯·æ‰‹åŠ¨å¤„ç†ã€‚
+- å¯¹äº AT å­—æ®µæœªå†™ descriptor çš„æƒ…å†µï¼Œä¼šå°è¯•ä» `common/build/moddev/artifacts/vanilla-*-sources.jar` æ¨æ–­ç±»å‹ã€‚
 
-## ·¢²¼ÈÎÎñ£¨¿ÉÑ¡£©
+## å‘å¸ƒä»»åŠ¡ï¼ˆå¯é€‰ï¼‰
 
-- ¾ÛºÏ·¢²¼£º`publishLoaderReleases`
-- µ¥¶Ë·¢²¼£º
+- èšåˆå‘å¸ƒï¼š`publishLoaderReleases`
+- å•ç«¯å‘å¸ƒï¼š
   - `:fabric:publishToPlatformServices`
   - `:neoforge:publishToPlatformServices`
 
-·¢²¼²ÎÊı¼û `gradle.properties` µÄ `Release Publishing` ¶Î¡£
+å‘å¸ƒå‚æ•°è§ `gradle.properties` çš„ `Release Publishing` æ®µã€‚
