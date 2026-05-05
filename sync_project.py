@@ -721,23 +721,12 @@ def rename_modid_files(old_mod_id: str, new_mod_id: str) -> None:
             file.replace(target)
 
 
-def rename_service_filename(old_package: str, new_package: str) -> None:
-    if old_package == new_package:
-        return
-
-    for module in ("fabric", "neoforge"):
-        services_dir = ROOT / module / "src" / "main" / "resources" / "META-INF" / "services"
-        if not services_dir.exists():
-            continue
-
-        old_name = f"{old_package}.platform.services.IPlatformHelper"
-        new_name = f"{new_package}.platform.services.IPlatformHelper"
-        src = services_dir / old_name
-        dst = services_dir / new_name
-        if src.exists():
-            if dst.exists():
-                dst.unlink()
-            src.replace(dst)
+def update_root_project_name(project_name: str) -> None:
+    settings_path = ROOT / "settings.gradle.kts"
+    content = read_text(settings_path)
+    updated = re.sub(r'rootProject\.name\s*=\s*"[^"]*"', f'rootProject.name = "{project_name}"', content)
+    if updated != content:
+        write_text(settings_path, updated)
 
 
 def iter_text_files() -> Iterable[Path]:
@@ -1062,7 +1051,7 @@ def sync_from_properties() -> None:
     rename_main_class_file("neoforge", target_group, old_state.neoforge_main, target_neoforge_main)
 
     rename_modid_files(old_state.mod_id, target_mod_id)
-    rename_service_filename(old_state.package, target_group)
+    update_root_project_name(target_mod_name)
 
     rewrite_contents(
         old_state=old_state,
